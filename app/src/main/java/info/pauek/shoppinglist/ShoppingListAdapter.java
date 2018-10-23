@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
     Context context;
     List<ShoppingItem> items;
     private OnClickListener onClickListener;
+    private OnLongClickListener onLongClickListener;
+
 
     public ShoppingListAdapter(Context context, List<ShoppingItem> items) {
         this.context = context;
@@ -23,7 +26,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.item_view, parent, false);
-        return new ItemHolder(itemView, onClickListener);
+        return new ItemHolder(itemView, onClickListener,onLongClickListener);
     }
 
     @Override
@@ -40,7 +43,15 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
         this.onClickListener = listener;
     }
 
+    public void setOnLongClickListener(OnLongClickListener onLongClickListener) {
+        this.onLongClickListener = onLongClickListener;
+    }
+
+
     public interface OnClickListener {
         void onClick(int position);
+    }
+    public interface OnLongClickListener{
+        void onLongClick(int position);
     }
 }
